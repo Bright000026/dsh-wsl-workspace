@@ -4,6 +4,29 @@
 
 本文件为中文记录（0.4.3 及更早为摘要）；英文原文见 [CHANGELOG.md](CHANGELOG.md)。
 
+## 0.7.8 — 2026-10-20
+
+**这一版把 0.7.7 自己那份记录里已经写下的修复真正发出去。** registry 上的 0.7.7 tarball 是在那些修复落地之前
+构建的；[#85](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/pull/85) 把它们补进了**已经
+发布**的那条记录——改的是文字，不是字节。其中两条今天从 tarball 本身就能证：`dsh-wsl-workspace@0.7.7` **没有
+`lib/wsl-image-tool.js`**（在 WSL 世界里应答 `read_image` 的那一行，
+[#83](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/pull/83)），而它的 `lib/index.js` 里
+`PERSONA_APPEND` 仍以 `Your working directory {{cwd}} is inside a WSL …` 结尾——正是让严格渲染器报
+`unknown prompt variable "{{cwd}}"`
+（[#95](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/issues/95)）的那句。本版携带的各条
+修复，说明就写在下面 0.7.7 那一段（#79、#81、#83、#84、#86、#87），原文不改；加这一行只是让记录与字节一致。
+
+- **`wsl-*` 会话现在声明并实测针对 DSH 0.2.1-rc.2。** 兼容窗口的头、`dshReleases` 与两份 README 一起前进，
+  测试树所依据的宿主族钉在 `0.2.1-rc.2`
+  （[#92](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/pull/92)）。那个版本在这插件底下
+  改了什么写在那条 PR 里，而不是留给运行时去发现——前台 `bash` 与 fs 工具套件各多了一只 `workingDirectory`
+  手——而消费方台账新增的五对，现在每一对背后都有一次真调用
+  （[#94](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/pull/94)）。
+
+- **不作声明**：[#89](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/issues/89)
+  （0.2.1-rc.2 上「五个 `file:` 行 never started」）在本包、web profile、Desktop 自带宿主三面都不复现，全部绿；
+  在报告者答复前保持打开。
+
 ## 0.7.7 — 2026-10-07
 - **stderr 那一侧的溢出文件，现在和 stdout 那一侧守同样的承诺。** 四条都在真实发行版上量过（2026-10-11，
   Ubuntu，`seq 1 200000 >&2`），四条都已修。

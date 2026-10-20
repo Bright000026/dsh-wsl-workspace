@@ -2,6 +2,33 @@
 
 All notable changes to `dsh-wsl-workspace`, newest first. Back to the [README](README.md); the Chinese record is [CHANGELOG.zh.md](CHANGELOG.zh.md).
 
+## 0.7.8 — 2026-10-20
+
+**This release ships what 0.7.7's own record already described.** The 0.7.7 tarball on the registry was built
+before those fixes landed; [#85](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/pull/85)
+folded them into the already-published line, which changed the record and not the bytes. Two are provable from
+the tarball itself, measured today: `dsh-wsl-workspace@0.7.7` has **no `lib/wsl-image-tool.js`** — the row
+that answers `read_image` inside the WSL world
+([#83](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/pull/83)) — and its `lib/index.js`
+still ends `PERSONA_APPEND` with `Your working directory {{cwd}} is inside a WSL …`, the exact sentence a
+strict renderer rejects with `unknown prompt variable "{{cwd}}"`
+([#95](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/issues/95)). The entries for the
+fixes this release carries are the ones already written under 0.7.7 below (#79, #81, #83, #84, #86, #87); they
+are unchanged, and this line exists so that the record and the bytes agree.
+
+- **A `wsl-*` session is declared and tested against DSH 0.2.1-rc.2.** The compatibility window's head,
+  `dshReleases` and both READMEs move together, and the host family the test tree runs against is pinned at
+  `0.2.1-rc.2` ([#92](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/pull/92)). What that
+  release changed under this plugin is named there rather than left to be discovered at runtime — the
+  foreground `bash` and the fs tool suite each grew a `workingDirectory` hand — and the consumer-coverage
+  ledger's five new pairs now each have a call behind them
+  ([#94](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/pull/94)).
+
+- **Not claimed here**: [#89](https://github.com/dsh-wsl-workspace-maintainers/dsh-wsl-workspace/issues/89)
+  (`five file: rows never started` on 0.2.1-rc.2) does not reproduce on this package, on a web profile, or
+  against the host bundled in the Desktop application — three surfaces, all green. It stays open until its
+  reporter answers.
+
 ## 0.7.7 — 2026-10-07
 - **The stderr arm of the spill file keeps the same promises the stdout arm does.** Four things were
   measured on a real distribution (2026-10-11, Ubuntu, `seq 1 200000 >&2`) and all four are fixed.
